@@ -48,7 +48,7 @@ class TaskController extends Controller
         
         $tasks->save();
 
-        return response()->json('successfully inserted',$tasks);
+        return response()->json($tasks);
     }
 
     /**
@@ -80,11 +80,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tasks $tasks)
+    public function update($tasks)
     {
-       
-
-       
+        $tasks = Tasks::find($tasks);
+        $tasks->reminder = $tasks->reminder == 1 ? 0 : 1;
+        $tasks->tasks = $tasks->tasks; 
+        $tasks->day = $tasks->day; 
+        $tasks->save();
+        return response()->json($tasks);
     }
 
     /**
