@@ -12,10 +12,10 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Tasks::orderBy('created_at', 'desc')->get();
-        return response()->json($tasks);
+        $tasks = Tasks::query();
+        return response()->json($tasks->paginate($request->per_page ?? 10));
     }
 
     /**
@@ -29,7 +29,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.use  <Pagination.Next /> logic
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -45,7 +45,7 @@ class TaskController extends Controller
         $tasks->tasks = $request->tasks;
         $tasks->day = $request->day;
         $tasks->reminder = $request->reminder == 1 ? true : false;
-        
+
         $tasks->save();
 
         return response()->json($tasks);
@@ -84,8 +84,8 @@ class TaskController extends Controller
     {
         $tasks = Tasks::find($tasks);
         $tasks->reminder = $tasks->reminder == 1 ? 0 : 1;
-        $tasks->tasks = $tasks->tasks; 
-        $tasks->day = $tasks->day; 
+        $tasks->tasks = $tasks->tasks;
+        $tasks->day = $tasks->day;
         $tasks->save();
         return response()->json($tasks);
     }
