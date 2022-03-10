@@ -15,7 +15,7 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $tasks = Tasks::query();
-        return response()->json($tasks->paginate($request->per_page ?? 10));
+        return response()->json($tasks->paginate($request->per_page ?? 4));
     }
 
     /**
@@ -80,13 +80,16 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($tasks)
+    public function update(Request $request, $tasks)
     {
+        
         $tasks = Tasks::find($tasks);
-        $tasks->reminder = $tasks->reminder == 1 ? 0 : 1;
-        $tasks->tasks = $tasks->tasks;
-        $tasks->day = $tasks->day;
+        $tasks->tasks = $request->tasks;
+        $tasks->day = $request->day;
+        $tasks->reminder = $request->reminder == 1 ? true : false;
+
         $tasks->save();
+
         return response()->json($tasks);
     }
 

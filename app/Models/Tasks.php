@@ -9,10 +9,7 @@ class Tasks extends Model
 {
     use HasFactory;
 
-   
-
      protected $fillable = [
-
         'tasks',
         'day',
         'reminder' => 'boolean',
