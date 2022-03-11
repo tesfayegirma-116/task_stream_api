@@ -121,10 +121,12 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    // 'key' => env('APP_KEY'),
+
+    // 'cipher' => 'AES-256-CBC',
+    'key' => env('APP_KEY', 'Z2IRwMRm451qSm3EzyM2/yKV6fM9fNNI8I+vp+/PH2U='),
 
     'cipher' => 'AES-256-CBC',
-
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
