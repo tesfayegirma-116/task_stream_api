@@ -18,8 +18,8 @@ class TasksFactory extends Factory
     {
         return [
             //
-            'tasks' => $this->faker->name(),
-            'day' => $this->faker->Date(),
+            // 'tasks' => $this->faker->name(),
+            // 'day' => $this->faker->Date(),
         ];
     }
 }
