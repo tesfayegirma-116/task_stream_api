@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Tasks;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -14,8 +16,8 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $tasks = Tasks::query();
-        return response()->json($tasks->paginate($request->per_page ?? 4));
+        $tasks = Tasks::where('user_id', '=', Auth::user()->id);
+        return response()->json($tasks->paginate($request->per_page ?? 5));
     }
 
     /**
@@ -25,7 +27,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return response()->json($users);
     }
 
     /**
@@ -44,6 +47,7 @@ class TaskController extends Controller
         $tasks = new Tasks();
         $tasks->tasks = $request->tasks;
         $tasks->day = $request->day;
+        $tasks->user_id = Auth::user()->id;
         $tasks->reminder = $request->reminder == 1 ? true : false;
 
         $tasks->save();
@@ -82,7 +86,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $tasks)
     {
-        
+
         $tasks = Tasks::find($tasks);
         $tasks->tasks = $request->tasks;
         $tasks->day = $request->day;

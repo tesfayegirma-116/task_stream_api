@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('tasks');
             $table->string('day');
             $table->boolean('reminder')->default(true);
+
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

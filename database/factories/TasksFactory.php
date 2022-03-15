@@ -20,6 +20,7 @@ class TasksFactory extends Factory
             //
             // 'tasks' => $this->faker->name(),
             // 'day' => $this->faker->Date(),
+            // 'user_id' => 1
         ];
     }
 }
